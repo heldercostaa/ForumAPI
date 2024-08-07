@@ -1,0 +1,18 @@
+name: nest-api
+
+services:
+  postgres:
+    container_name: postgres
+    image: bitnami/postgresql:16.3.0
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRESQL_DATABASE: nest-api
+      POSTGRESQL_USERNAME: postgres
+      POSTGRESQL_PASSWORD: postgres
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+volumes:
+  pg_data: {}

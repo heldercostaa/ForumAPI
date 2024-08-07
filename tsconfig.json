@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "_version": "20.1.0",
+
+  "compilerOptions": {
+    "lib": ["es2023"],
+    "module": "Node16",
+    "target": "es2022",
+
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "moduleResolution": "Node16",
+
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
+    "experimentalDecorators": true,
+    "sourceMap": true
+    // "allowSyntheticDefaultImports": true,
+    // "strictNullChecks": false,
+    // "noImplicitAny": false,
+
+    // "declaration": true,
+    // "removeComments": true,
+    // "emitDecoratorMetadata": true
+    // "incremental": true,
+    // "strictBindCallApply": false,
+    // "forceConsistentCasingInFileNames": false,
+    // "noFallthroughCasesInSwitch": false
+  }
+}
