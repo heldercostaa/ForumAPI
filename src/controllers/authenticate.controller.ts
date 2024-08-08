@@ -11,15 +11,15 @@ import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcryptjs';
 import z from 'zod';
 
-const bodySchema = z.object({
+const BodySchema = z.object({
   email: z.string().email(),
   password: z.string(),
 });
 
-type Body = z.infer<typeof bodySchema>;
+type Body = z.infer<typeof BodySchema>;
 
 @Controller('/sessions')
-@UsePipes(new ZodValidationPipe(bodySchema))
+@UsePipes(new ZodValidationPipe(BodySchema))
 export class AuthenticateController {
   constructor(
     private prisma: PrismaService,

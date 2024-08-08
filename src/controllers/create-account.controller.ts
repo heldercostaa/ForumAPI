@@ -11,13 +11,13 @@ import {
 import { hash } from 'bcryptjs';
 import z from 'zod';
 
-const bodySchema = z.object({
+const BodySchema = z.object({
   name: z.string(),
   email: z.string().email(),
   password: z.string(),
 });
 
-type Body = z.infer<typeof bodySchema>;
+type Body = z.infer<typeof BodySchema>;
 
 @Controller('/accounts')
 export class CreateAccountController {
@@ -25,7 +25,7 @@ export class CreateAccountController {
 
   @Post()
   @HttpCode(201)
-  @UsePipes(new ZodValidationPipe(bodySchema))
+  @UsePipes(new ZodValidationPipe(BodySchema))
   async handle(@Body() body: Body) {
     const { name, email, password } = body;
 

@@ -6,12 +6,14 @@ import { PrismaService } from '@/prisma/prisma.service';
 import { Body, Controller, HttpCode, Post, UseGuards } from '@nestjs/common';
 import z from 'zod';
 
-const bodySchema = z.object({
+const BodySchema = z.object({
   title: z.string(),
   content: z.string(),
 });
 
-type Body = z.infer<typeof bodySchema>;
+type Body = z.infer<typeof BodySchema>;
+
+const BodyValidationPipe = new ZodValidationPipe(BodySchema);
 
 @Controller('/questions')
 @UseGuards(JwtGuard)
@@ -22,7 +24,7 @@ export class CreateQuestionController {
   @HttpCode(201)
   async handle(
     @CurrentUser() user: UserPayload,
-    @Body(new ZodValidationPipe(bodySchema)) body: Body,
+    @Body(BodyValidationPipe) body: Body,
   ) {
     const userId = user.sub;
     const { title, content } = body;
