@@ -17,6 +17,9 @@ export const envSchema = z.object({
     .enum(['silent', 'trace', 'debug', 'info', 'warn', 'error', 'fatal'])
     .default('info'),
 
+  JWT_PRIVATE_KEY: z.string(),
+  JWT_PUBLIC_KEY: z.string(),
+
   DB_URL: z.string().url(),
   DB_QUERY_LOG: z
     .enum(['true', 'false'])
