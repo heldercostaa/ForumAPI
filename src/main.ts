@@ -8,9 +8,9 @@ async function bootstrap() {
     // logger: false,
   });
 
-  const configService = app.get<ConfigService<Env, true>>(ConfigService);
+  const config = app.get<ConfigService<Env, true>>(ConfigService);
 
-  const PORT = configService.get('PORT', { infer: true });
+  const PORT = config.get('PORT', { infer: true });
   await app.listen(PORT);
 }
 
