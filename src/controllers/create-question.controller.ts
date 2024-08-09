@@ -29,7 +29,7 @@ export class CreateQuestionController {
     const userId = user.sub;
     const { title, content } = body;
 
-    await this.prisma.question.create({
+    const question = await this.prisma.question.create({
       data: {
         authorId: userId,
         title,
@@ -37,6 +37,16 @@ export class CreateQuestionController {
         slug: this.convertToSlug(title),
       },
     });
+
+    return {
+      question: {
+        id: question.id,
+        authorId: question.authorId,
+        title: question.title,
+        content: question.content,
+        slug: question.slug,
+      },
+    };
   }
 
   private convertToSlug(text: string) {
