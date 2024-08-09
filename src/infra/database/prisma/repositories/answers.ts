@@ -1,5 +1,5 @@
 import { IPaginationParams } from '@/core/repositories/pagination-params';
-import { IAnswersRepository } from '@/domain/forum/application/repositories/answers-repository';
+import { IAnswersRepository } from '@/domain/forum/application/repositories/answers';
 import { Answer } from '@/domain/forum/enterprise/entities/answer';
 import { Injectable } from '@nestjs/common';
 

@@ -3,8 +3,8 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Answer } from '../../enterprise/entities/answer';
 import { AnswerAttachment } from '../../enterprise/entities/answer-attachment';
 import { AnswerAttachmentList } from '../../enterprise/entities/answer-attachment-list';
-import { IAnswerAttachmentsRepository } from '../repositories/answer-attachments-repository';
-import { IAnswersRepository } from '../repositories/answers-repository';
+import { IAnswerAttachmentsRepository } from '../repositories/answer-attachments';
+import { IAnswersRepository } from '../repositories/answers';
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
 import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error';
 

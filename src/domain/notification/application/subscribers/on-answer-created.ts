@@ -1,6 +1,6 @@
 import { DomainEvents } from '@/core/events/domain-events';
 import { IEventHandler } from '@/core/events/event-handler';
-import { IQuestionsRepository } from '@/domain/forum/application/repositories/questions-repository';
+import { IQuestionsRepository } from '@/domain/forum/application/repositories/questions';
 import { AnswerCreatedEvent } from '@/domain/forum/enterprise/events/answer-created-event';
 import { SendNotificationUseCase } from '../use-cases/send-notification';
 

@@ -1,7 +1,7 @@
+import { CreateQuestionUseCase } from '@/domain/forum/application/use-cases/create-question';
 import { CurrentUser } from '@/infra/auth/current-user.decorator';
 import { JwtGuard } from '@/infra/auth/jwt.guard';
 import { UserPayload } from '@/infra/auth/jwt.strategy';
-import { PrismaService } from '@/infra/database/prisma/prisma.service';
 import { Body, Controller, HttpCode, Post, UseGuards } from '@nestjs/common';
 import z from 'zod';
 import { ZodValidationPipe } from '../pipes/zod-validation.pipe';
@@ -18,7 +18,7 @@ const BodyValidationPipe = new ZodValidationPipe(BodySchema);
 @Controller('/questions')
 @UseGuards(JwtGuard)
 export class CreateQuestionController {
-  constructor(private prisma: PrismaService) {}
+  constructor(private createQuestion: CreateQuestionUseCase) {}
 
   @Post()
   @HttpCode(201)
@@ -29,37 +29,28 @@ export class CreateQuestionController {
     const userId = user.sub;
     const { title, content } = body;
 
-    const question = await this.prisma.question.create({
-      data: {
-        authorId: userId,
-        title,
-        content,
-        slug: this.convertToSlug(title),
-      },
+    const useCaseResponse = await this.createQuestion.execute({
+      title,
+      content,
+      authorId: userId,
+      attachmentsIds: [],
     });
 
+    if (useCaseResponse.isLeft()) {
+      throw new Error('Error creating question');
+    }
+
+    const question = useCaseResponse.value.question;
+
+    // TODO: Create mapper for response
     return {
       question: {
-        id: question.id,
-        authorId: question.authorId,
+        id: question.id.toString(),
+        authorId: question.authorId.toString(),
         title: question.title,
         content: question.content,
-        slug: question.slug,
+        slug: question.slug.value,
       },
     };
-  }
-
-  private convertToSlug(text: string) {
-    const slug = text
-      .normalize('NFKD')
-      .toLowerCase()
-      .trim()
-      .replace(/\s+/g, '-')
-      .replace(/[^\w-]+/g, '')
-      .replace(/_/g, '')
-      .replace(/--+/g, '-')
-      .replace(/-$/g, '');
-
-    return slug;
   }
 }

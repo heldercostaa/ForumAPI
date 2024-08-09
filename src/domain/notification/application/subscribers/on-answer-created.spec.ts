@@ -1,10 +1,10 @@
 import { makeAnswer } from 'test/factories/make-answer';
 import { makeQuestion } from 'test/factories/make-question';
-import { InMemoryAnswerAttachmentRepository } from 'test/repositories/in-memory-answer-attachments-repository';
-import { InMemoryAnswersRepository } from 'test/repositories/in-memory-answers-repository';
-import { InMemoryNotificationsRepository } from 'test/repositories/in-memory-notifications-repository';
-import { InMemoryQuestionAttachmentRepository } from 'test/repositories/in-memory-question-attachments-repository';
-import { InMemoryQuestionsRepository } from 'test/repositories/in-memory-questions-repository';
+import { InMemoryAnswerAttachmentRepository } from 'test/repositories/in-memory-answer-attachments';
+import { InMemoryAnswersRepository } from 'test/repositories/in-memory-answers';
+import { InMemoryNotificationsRepository } from 'test/repositories/in-memory-notifications';
+import { InMemoryQuestionAttachmentRepository } from 'test/repositories/in-memory-question-attachments';
+import { InMemoryQuestionsRepository } from 'test/repositories/in-memory-questions';
 import { waitFor } from 'test/utils/wait-for';
 import { MockInstance } from 'vitest';
 import { SendNotificationUseCase } from '../use-cases/send-notification';

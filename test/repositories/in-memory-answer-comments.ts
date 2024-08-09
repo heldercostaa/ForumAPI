@@ -1,5 +1,5 @@
 import { IPaginationParams } from '@/core/repositories/pagination-params';
-import { IAnswerCommentsRepository } from '@/domain/forum/application/repositories/answer-comments-repository';
+import { IAnswerCommentsRepository } from '@/domain/forum/application/repositories/answer-comments';
 import { AnswerComment } from '@/domain/forum/enterprise/entities/answer-comment';
 
 export class InMemoryAnswerCommentRepository

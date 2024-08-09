@@ -1,6 +1,6 @@
 import { Either, right } from '@/core/either';
 import { Question } from '../../enterprise/entities/question';
-import { IQuestionsRepository } from '../repositories/questions-repository';
+import { IQuestionsRepository } from '../repositories/questions';
 
 type FetchRecentQuestionsUseCaseRequest = {
   page: number;

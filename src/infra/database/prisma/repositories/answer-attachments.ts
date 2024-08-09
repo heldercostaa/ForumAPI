@@ -1,4 +1,4 @@
-import { IAnswerAttachmentsRepository } from '@/domain/forum/application/repositories/answer-attachments-repository';
+import { IAnswerAttachmentsRepository } from '@/domain/forum/application/repositories/answer-attachments';
 import { AnswerAttachment } from '@/domain/forum/enterprise/entities/answer-attachment';
 import { Injectable } from '@nestjs/common';
 
