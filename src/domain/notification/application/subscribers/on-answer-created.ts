@@ -1,12 +1,12 @@
 import { DomainEvents } from '@/core/events/domain-events';
-import { EventHandler } from '@/core/events/event-handler';
-import { QuestionsRepository } from '@/domain/forum/application/repositories/questions-repository';
+import { IEventHandler } from '@/core/events/event-handler';
+import { IQuestionsRepository } from '@/domain/forum/application/repositories/questions-repository';
 import { AnswerCreatedEvent } from '@/domain/forum/enterprise/events/answer-created-event';
 import { SendNotificationUseCase } from '../use-cases/send-notification';
 
-export class OnAnswerCreated implements EventHandler {
+export class OnAnswerCreated implements IEventHandler {
   constructor(
-    private questionsRepository: QuestionsRepository,
+    private questionsRepository: IQuestionsRepository,
     private sendNotification: SendNotificationUseCase,
   ) {
     this.setupSubscriptions();

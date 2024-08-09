@@ -1,12 +1,12 @@
 import { DomainEvents } from '@/core/events/domain-events';
-import { EventHandler } from '@/core/events/event-handler';
-import { AnswersRepository } from '@/domain/forum/application/repositories/answers-repository';
+import { IEventHandler } from '@/core/events/event-handler';
+import { IAnswersRepository } from '@/domain/forum/application/repositories/answers-repository';
 import { QuestionBestAnswerChosenEvent } from '@/domain/forum/enterprise/events/question-best-answer-chosen-event';
 import { SendNotificationUseCase } from '../use-cases/send-notification';
 
-export class OnQuestionBestAnswerChosen implements EventHandler {
+export class OnQuestionBestAnswerChosen implements IEventHandler {
   constructor(
-    private answersRepository: AnswersRepository,
+    private answersRepository: IAnswersRepository,
     private sendNotification: SendNotificationUseCase,
   ) {
     this.setupSubscriptions();

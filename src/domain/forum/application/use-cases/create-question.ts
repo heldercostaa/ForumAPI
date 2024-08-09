@@ -3,14 +3,14 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Question } from '../../enterprise/entities/question';
 import { QuestionAttachment } from '../../enterprise/entities/question-attachment';
 import { QuestionAttachmentList } from '../../enterprise/entities/question-attachment-list';
-import { QuestionsRepository } from '../repositories/questions-repository';
+import { IQuestionsRepository } from '../repositories/questions-repository';
 
-interface CreateQuestionUseCaseRequest {
+type CreateQuestionUseCaseRequest = {
   authorId: string;
   title: string;
   content: string;
   attachmentsIds: string[];
-}
+};
 
 type CreateQuestionUseCaseResponse = Either<
   null,
@@ -20,7 +20,7 @@ type CreateQuestionUseCaseResponse = Either<
 >;
 
 export class CreateQuestionUseCase {
-  constructor(private questionsRepository: QuestionsRepository) {}
+  constructor(private questionsRepository: IQuestionsRepository) {}
 
   async execute({
     authorId,

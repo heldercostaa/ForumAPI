@@ -6,7 +6,7 @@ import { AggregateRoot } from '@/core/entities/aggregate-root';
 import { QuestionAttachmentList } from './question-attachment-list';
 import { QuestionBestAnswerChosenEvent } from '../events/question-best-answer-chosen-event';
 
-export interface QuestionProps {
+export type QuestionProps = {
   authorId: UniqueEntityID;
   bestAnswerId?: UniqueEntityID;
   title: string;
@@ -15,7 +15,7 @@ export interface QuestionProps {
   attachments: QuestionAttachmentList;
   createdAt: Date;
   updatedAt?: Date;
-}
+};
 
 export class Question extends AggregateRoot<QuestionProps> {
   get authorId() {

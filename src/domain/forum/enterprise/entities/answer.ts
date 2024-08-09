@@ -4,14 +4,14 @@ import { Optional } from '@/core/types/optional';
 import { AnswerCreatedEvent } from '../events/answer-created-event';
 import { AnswerAttachmentList } from './answer-attachment-list';
 
-export interface AnswerProps {
+export type AnswerProps = {
   authorId: UniqueEntityID;
   questionId: UniqueEntityID;
   content: string;
   attachments: AnswerAttachmentList;
   createdAt: Date;
   updatedAt?: Date;
-}
+};
 
 export class Answer extends AggregateRoot<AnswerProps> {
   get authorId() {

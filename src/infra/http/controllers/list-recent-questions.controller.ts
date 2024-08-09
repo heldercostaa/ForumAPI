@@ -1,7 +1,7 @@
-import { ZodValidationPipe } from '@/pipes/zod-validation.pipe';
-import { PrismaService } from '@/prisma/prisma.service';
+import { PrismaService } from '@/infra/database/prisma/prisma.service';
 import { Controller, Get, Query } from '@nestjs/common';
 import z from 'zod';
+import { ZodValidationPipe } from '../pipes/zod-validation.pipe';
 
 const QuerySchema = z
   .string()

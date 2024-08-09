@@ -1,11 +1,11 @@
 import { Either, right } from '@/core/either';
 import { AnswerComment } from '../../enterprise/entities/answer-comment';
-import { AnswerCommentsRepository } from '../repositories/answer-comments-repository';
+import { IAnswerCommentsRepository } from '../repositories/answer-comments-repository';
 
-interface FetchAnswerCommentsUseCaseRequest {
+type FetchAnswerCommentsUseCaseRequest = {
   answerId: string;
   page: number;
-}
+};
 
 type FetchAnswerCommentsUseCaseResponse = Either<
   null,
@@ -15,7 +15,7 @@ type FetchAnswerCommentsUseCaseResponse = Either<
 >;
 
 export class FetchAnswerCommentsUseCase {
-  constructor(private answerCommentsRepository: AnswerCommentsRepository) {}
+  constructor(private answerCommentsRepository: IAnswerCommentsRepository) {}
 
   async execute({
     answerId,

@@ -1,6 +1,6 @@
-import { UseCaseError } from '@/core/errors/use-case-error';
+import { IUseCaseError } from '@/core/errors/use-case-error';
 
-export class NotAllowedError extends Error implements UseCaseError {
+export class NotAllowedError extends Error implements IUseCaseError {
   constructor() {
     super('Not allowed');
   }

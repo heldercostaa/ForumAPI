@@ -1,14 +1,14 @@
 import { DomainEvents } from '@/core/events/domain-events';
-import { PaginationParams } from '@/core/repositories/pagination-params';
-import { QuestionAttachmentsRepository } from '@/domain/forum/application/repositories/question-attachments.repository';
-import { QuestionsRepository } from '@/domain/forum/application/repositories/questions-repository';
+import { IPaginationParams } from '@/core/repositories/pagination-params';
+import { IQuestionAttachmentsRepository } from '@/domain/forum/application/repositories/question-attachments.repository';
+import { IQuestionsRepository } from '@/domain/forum/application/repositories/questions-repository';
 import { Question } from '@/domain/forum/enterprise/entities/question';
 
-export class InMemoryQuestionsRepository implements QuestionsRepository {
+export class InMemoryQuestionsRepository implements IQuestionsRepository {
   public items: Question[] = [];
 
   constructor(
-    private questionAttachmentsRepository: QuestionAttachmentsRepository,
+    private questionAttachmentsRepository: IQuestionAttachmentsRepository,
   ) {}
 
   async findById(id: string) {
@@ -27,7 +27,7 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
     return question;
   }
 
-  async findManyRecent({ page }: PaginationParams) {
+  async findManyRecent({ page }: IPaginationParams) {
     const questions = this.items
       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
       .slice((page - 1) * 20, page * 20);

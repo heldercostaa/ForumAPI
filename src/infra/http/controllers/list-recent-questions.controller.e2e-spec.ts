@@ -1,11 +1,11 @@
-import { AppModule } from '@/app.module';
-import { PrismaService } from '@/prisma/prisma.service';
+import { AppModule } from '@/infra/app.module';
+import { PrismaService } from '@/infra/database/prisma/prisma.service';
 import { INestApplication } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Test } from '@nestjs/testing';
 import request from 'supertest';
 
-describe('Create question (E2E)', () => {
+describe('List recent questions (E2E)', () => {
   let app: INestApplication;
   let prisma: PrismaService;
   let jwt: JwtService;
@@ -22,7 +22,7 @@ describe('Create question (E2E)', () => {
     await app.init();
   });
 
-  test('[POST] /questions', async () => {
+  test('[GET] /questions', async () => {
     const user = await prisma.user.create({
       data: {
         name: 'John Doe',
@@ -33,26 +33,35 @@ describe('Create question (E2E)', () => {
 
     const accessToken = jwt.sign({ sub: user.id });
 
-    const { body } = await request(app.getHttpServer())
-      .post('/questions')
-      .set('Authorization', `Bearer ${accessToken}`)
-      .send({
-        title: 'What is question?',
-        content: 'I want to know what a question is.',
-      })
-      .expect(({ body }) => expect(body.error).toBeUndefined())
-      .expect(201);
-
-    expect(body.question.id).toEqual(expect.any(String));
-    expect(body.question.authorId).toEqual(user.id);
-    expect(body.question.title).toEqual('What is question?');
-    expect(body.question.content).toEqual('I want to know what a question is.');
-    expect(body.question.slug).toEqual('what-is-question');
-
-    const createdQuestion = await prisma.question.findFirst({
-      where: { title: 'What is question?' },
+    await prisma.question.createMany({
+      data: [
+        {
+          authorId: user.id,
+          title: 'Question 1',
+          slug: 'question-1',
+          content: 'Content 1',
+        },
+        {
+          authorId: user.id,
+          title: 'Question 2',
+          slug: 'question-2',
+          content: 'Content 2',
+        },
+      ],
     });
 
-    expect(createdQuestion).toBeTruthy();
+    const { body } = await request(app.getHttpServer())
+      .get('/questions')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .send()
+      .expect(({ body }) => expect(body.error).toBeUndefined())
+      .expect(200);
+
+    expect(body).toEqual({
+      questions: [
+        expect.objectContaining({ title: 'Question 1' }),
+        expect.objectContaining({ title: 'Question 2' }),
+      ],
+    });
   });
 });

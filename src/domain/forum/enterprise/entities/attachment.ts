@@ -1,10 +1,10 @@
 import { Entity } from '@/core/entities/entity';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 
-interface AttachmentProps {
+type AttachmentProps = {
   title: string;
   link: string;
-}
+};
 
 export class Attachment extends Entity<AttachmentProps> {
   get title() {

@@ -1,11 +1,11 @@
-import { PaginationParams } from '@/core/repositories/pagination-params';
+import { IPaginationParams } from '@/core/repositories/pagination-params';
 import { Answer } from '../../enterprise/entities/answer';
 
-export interface AnswersRepository {
+export interface IAnswersRepository {
   findById(id: string): Promise<Answer | null>;
   findManyByQuestionId(
     questionId: string,
-    params: PaginationParams,
+    params: IPaginationParams,
   ): Promise<Answer[]>;
   create(answer: Answer): Promise<void>;
   save(answer: Answer): Promise<void>;

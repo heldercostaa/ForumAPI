@@ -1,6 +1,6 @@
 import { AggregateRoot } from '../entities/aggregate-root';
 import { UniqueEntityID } from '../entities/unique-entity-id';
-import { DomainEvent } from './domain-event';
+import { IDomainEvent } from './domain-event';
 
 type DomainEventCallback = (event: unknown) => void;
 
@@ -17,7 +17,7 @@ export class DomainEvents {
   }
 
   private static dispatchAggregateEvents(aggregate: AggregateRoot<unknown>) {
-    aggregate.domainEvents.forEach((event: DomainEvent) =>
+    aggregate.domainEvents.forEach((event: IDomainEvent) =>
       this.dispatch(event),
     );
   }
@@ -67,7 +67,7 @@ export class DomainEvents {
     this.markedAggregates = [];
   }
 
-  private static dispatch(event: DomainEvent) {
+  private static dispatch(event: IDomainEvent) {
     const eventClassName: string = event.constructor.name;
 
     const isEventRegistered = eventClassName in this.handlersMap;

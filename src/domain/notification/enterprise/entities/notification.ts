@@ -2,13 +2,13 @@ import { Entity } from '@/core/entities/entity';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Optional } from '@/core/types/optional';
 
-export interface NotificationProps {
+export type NotificationProps = {
   recipientId: UniqueEntityID;
   title: string;
   content: string;
   createdAt: Date;
   readAt?: Date;
-}
+};
 
 export class Notification extends Entity<NotificationProps> {
   get recipientId() {

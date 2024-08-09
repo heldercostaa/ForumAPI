@@ -1,9 +1,9 @@
-import { PaginationParams } from '@/core/repositories/pagination-params';
-import { QuestionCommentsRepository } from '@/domain/forum/application/repositories/question-comments-repository';
+import { IPaginationParams } from '@/core/repositories/pagination-params';
+import { IQuestionCommentsRepository } from '@/domain/forum/application/repositories/question-comments-repository';
 import { QuestionComment } from '@/domain/forum/enterprise/entities/question-comment';
 
 export class InMemoryQuestionCommentRepository
-  implements QuestionCommentsRepository
+  implements IQuestionCommentsRepository
 {
   public items: QuestionComment[] = [];
 
@@ -17,7 +17,7 @@ export class InMemoryQuestionCommentRepository
     return questionComment;
   }
 
-  async findManyByQuestionId(questionId: string, { page }: PaginationParams) {
+  async findManyByQuestionId(questionId: string, { page }: IPaginationParams) {
     const questionComments = this.items
       .filter((item) => item.questionId.toString() === questionId)
       .slice((page - 1) * 20, page * 20);

@@ -1,12 +1,12 @@
 import { Either, left, right } from '@/core/either';
-import { AnswersRepository } from '../repositories/answers-repository';
+import { IAnswersRepository } from '../repositories/answers-repository';
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
 import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error';
 
-interface DeleteAnswerUseCaseRequest {
+type DeleteAnswerUseCaseRequest = {
   authorId: string;
   answerId: string;
-}
+};
 
 type DeleteAnswerUseCaseResponse = Either<
   ResourceNotFoundError | NotAllowedError,
@@ -14,7 +14,7 @@ type DeleteAnswerUseCaseResponse = Either<
 >;
 
 export class DeleteAnswerUseCase {
-  constructor(private answersRepository: AnswersRepository) {}
+  constructor(private answersRepository: IAnswersRepository) {}
 
   async execute({
     answerId,

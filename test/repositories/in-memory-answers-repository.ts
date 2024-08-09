@@ -1,14 +1,14 @@
 import { DomainEvents } from '@/core/events/domain-events';
-import { PaginationParams } from '@/core/repositories/pagination-params';
-import { AnswerAttachmentsRepository } from '@/domain/forum/application/repositories/answer-attachments-repository';
-import { AnswersRepository } from '@/domain/forum/application/repositories/answers-repository';
+import { IPaginationParams } from '@/core/repositories/pagination-params';
+import { IAnswerAttachmentsRepository } from '@/domain/forum/application/repositories/answer-attachments-repository';
+import { IAnswersRepository } from '@/domain/forum/application/repositories/answers-repository';
 import { Answer } from '@/domain/forum/enterprise/entities/answer';
 
-export class InMemoryAnswersRepository implements AnswersRepository {
+export class InMemoryAnswersRepository implements IAnswersRepository {
   public items: Answer[] = [];
 
   constructor(
-    private answerAttachmentsRepository: AnswerAttachmentsRepository,
+    private answerAttachmentsRepository: IAnswerAttachmentsRepository,
   ) {}
 
   async findById(id: string) {
@@ -19,7 +19,7 @@ export class InMemoryAnswersRepository implements AnswersRepository {
     return answer;
   }
 
-  async findManyByQuestionId(questionId: string, { page }: PaginationParams) {
+  async findManyByQuestionId(questionId: string, { page }: IPaginationParams) {
     const answers = this.items
       .filter((item) => item.questionId.toString() === questionId)
       .slice((page - 1) * 20, page * 20);

@@ -2,9 +2,9 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Optional } from '@/core/types/optional';
 import { Comment, CommentProps } from './comment';
 
-export interface QuestionCommentProps extends CommentProps {
+export type QuestionCommentProps = CommentProps & {
   questionId: UniqueEntityID;
-}
+};
 
 export class QuestionComment extends Comment<QuestionCommentProps> {
   get questionId() {
