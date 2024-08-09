@@ -44,8 +44,6 @@ export class PrismaQuestionsRepository implements IQuestionsRepository {
   async create(question: Question): Promise<void> {
     const data = PrismaQuestionMapper.toPrisma(question);
 
-    console.log('[DEBUG] data: ', data);
-
     await this.prisma.question.create({ data });
   }
 
