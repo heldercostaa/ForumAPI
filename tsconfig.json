@@ -25,6 +25,7 @@
     "strict": true,
     "strictNullChecks": true,
     "noImplicitAny": false,
+    "strictBindCallApply": false,
 
     // Decorators
     "experimentalDecorators": true,
@@ -40,7 +41,6 @@
     "removeComments": true,
     "incremental": true
 
-    // "strictBindCallApply": false,
     // "noFallthroughCasesInSwitch": false
   }
 }
