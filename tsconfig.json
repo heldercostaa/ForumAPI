@@ -3,33 +3,44 @@
   "_version": "20.1.0",
 
   "compilerOptions": {
+    // Compiler
     "lib": ["es2023"],
     "module": "Node16",
     "target": "es2022",
-
     "esModuleInterop": true,
     "skipLibCheck": true,
     "moduleResolution": "Node16",
 
+    // Globals
+    "types": ["vitest/globals"],
+
+    // Paths
     "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
       "@/*": ["./src/*"]
     },
 
+    // Types
     "strict": true,
     "strictNullChecks": true,
-    "experimentalDecorators": true,
-    "sourceMap": true
-    // "allowSyntheticDefaultImports": true,
-    // "noImplicitAny": false,
+    "noImplicitAny": false,
 
-    // "declaration": true,
-    // "removeComments": true,
-    // "emitDecoratorMetadata": true
-    // "incremental": true,
+    // Decorators
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    // Imports
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": false,
+
+    // Dist
+    "declaration": true,
+    "sourceMap": true,
+    "removeComments": true,
+    "incremental": true
+
     // "strictBindCallApply": false,
-    // "forceConsistentCasingInFileNames": false,
     // "noFallthroughCasesInSwitch": false
   }
 }

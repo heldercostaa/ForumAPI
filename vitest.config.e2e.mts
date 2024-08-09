@@ -1,12 +1,15 @@
+import swc from 'unplugin-swc';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
-  plugins: [tsconfigPaths()],
+  plugins: [tsconfigPaths(), swc.vite({ module: { type: 'es6' } })],
   test: {
-    environmentMatchGlobs: [
-      ['src/http/controllers/**', './vitest-environments/prisma.ts'],
-    ],
+    include: ['**/*.e2e-spec.ts'],
+
+    globals: true,
+    root: './',
+    setupFiles: ['./test/setup-e2e.ts'],
 
     reporters: ['verbose'],
     outputFile: 'coverage/junit.xml',
