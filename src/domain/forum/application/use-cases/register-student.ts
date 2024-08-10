@@ -4,7 +4,7 @@ import { Either, left, right } from '@/core/either';
 
 import { Student } from '../../enterprise/entities/student';
 import { HashGenerator } from '../cryptography/hash-generator';
-import { IStudentRepository } from '../repositories/student';
+import { IStudentsRepository } from '../repositories/students';
 import { StudentAlreadyExistsError } from './errors/student-already-exists';
 
 type RegisterStudentUseCaseParams = {
@@ -23,7 +23,7 @@ type RegisterStudentUseCaseReturn = Either<
 @Injectable()
 export class RegisterStudentUseCase {
   constructor(
-    private studentsRepository: IStudentRepository,
+    private studentsRepository: IStudentsRepository,
     private hashGenerator: HashGenerator,
   ) {}
 

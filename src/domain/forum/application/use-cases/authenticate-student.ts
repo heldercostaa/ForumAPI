@@ -4,7 +4,7 @@ import { Either, left, right } from '@/core/either';
 
 import { Encrypter } from '../cryptography/encrypter';
 import { HashComparer } from '../cryptography/hash-comparer';
-import { IStudentRepository } from '../repositories/student';
+import { IStudentsRepository } from '../repositories/students';
 import { WrongCredentialsError } from './errors/wrong-credentials';
 
 type AuthenticateStudentUseCaseParams = {
@@ -22,7 +22,7 @@ type AuthenticateStudentUseCaseReturn = Either<
 @Injectable()
 export class AuthenticateStudentUseCase {
   constructor(
-    private studentsRepository: IStudentRepository,
+    private studentsRepository: IStudentsRepository,
     private hashComparer: HashComparer,
     private encrypter: Encrypter,
   ) {}
