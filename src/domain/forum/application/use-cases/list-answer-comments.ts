@@ -2,25 +2,25 @@ import { Either, right } from '@/core/either';
 import { AnswerComment } from '../../enterprise/entities/answer-comment';
 import { IAnswerCommentsRepository } from '../repositories/answer-comments';
 
-type FetchAnswerCommentsUseCaseRequest = {
+type ListAnswerCommentsUseCaseRequest = {
   answerId: string;
   page: number;
 };
 
-type FetchAnswerCommentsUseCaseResponse = Either<
+type ListAnswerCommentsUseCaseResponse = Either<
   null,
   {
     answerComments: AnswerComment[];
   }
 >;
 
-export class FetchAnswerCommentsUseCase {
+export class ListAnswerCommentsUseCase {
   constructor(private answerCommentsRepository: IAnswerCommentsRepository) {}
 
   async execute({
     answerId,
     page,
-  }: FetchAnswerCommentsUseCaseRequest): Promise<FetchAnswerCommentsUseCaseResponse> {
+  }: ListAnswerCommentsUseCaseRequest): Promise<ListAnswerCommentsUseCaseResponse> {
     const answerComments =
       await this.answerCommentsRepository.findManyByAnswerId(answerId, {
         page,
