@@ -5,13 +5,13 @@ import { IQuestionCommentsRepository } from '../repositories/question-comments';
 import { IQuestionsRepository } from '../repositories/questions';
 import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error';
 
-type CommentOnQuestionUseCaseRequest = {
+type CommentOnQuestionUseCaseParams = {
   authorId: string;
   questionId: string;
   content: string;
 };
 
-type CommentOnQuestionUseCaseResponse = Either<
+type CommentOnQuestionUseCaseReturn = Either<
   ResourceNotFoundError,
   {
     questionComment: QuestionComment;
@@ -28,7 +28,7 @@ export class CommentOnQuestionUseCase {
     authorId,
     questionId,
     content,
-  }: CommentOnQuestionUseCaseRequest): Promise<CommentOnQuestionUseCaseResponse> {
+  }: CommentOnQuestionUseCaseParams): Promise<CommentOnQuestionUseCaseReturn> {
     const question = await this.questionsRepository.findById(questionId);
 
     if (!question) {

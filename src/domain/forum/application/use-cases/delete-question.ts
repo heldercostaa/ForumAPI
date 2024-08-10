@@ -3,12 +3,12 @@ import { IQuestionsRepository } from '../repositories/questions';
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
 import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error';
 
-type DeleteQuestionUseCaseRequest = {
+type DeleteQuestionUseCaseParams = {
   authorId: string;
   questionId: string;
 };
 
-type DeleteQuestionUseCaseResponse = Either<
+type DeleteQuestionUseCaseReturn = Either<
   ResourceNotFoundError | NotAllowedError,
   null
 >;
@@ -19,7 +19,7 @@ export class DeleteQuestionUseCase {
   async execute({
     questionId,
     authorId,
-  }: DeleteQuestionUseCaseRequest): Promise<DeleteQuestionUseCaseResponse> {
+  }: DeleteQuestionUseCaseParams): Promise<DeleteQuestionUseCaseReturn> {
     const question = await this.questionsRepository.findById(questionId);
 
     if (!question) {

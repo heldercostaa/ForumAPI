@@ -8,14 +8,14 @@ import { IAnswersRepository } from '../repositories/answers';
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
 import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error';
 
-type EditAnswerUseCaseRequest = {
+type EditAnswerUseCaseParams = {
   authorId: string;
   answerId: string;
   content: string;
   attachmentsIds: string[];
 };
 
-type EditAnswerUseCaseResponse = Either<
+type EditAnswerUseCaseReturn = Either<
   ResourceNotFoundError | NotAllowedError,
   {
     answer: Answer;
@@ -33,7 +33,7 @@ export class EditAnswerUseCase {
     answerId,
     content,
     attachmentsIds,
-  }: EditAnswerUseCaseRequest): Promise<EditAnswerUseCaseResponse> {
+  }: EditAnswerUseCaseParams): Promise<EditAnswerUseCaseReturn> {
     const answer = await this.answersRepository.findById(answerId);
 
     if (!answer) {

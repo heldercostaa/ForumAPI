@@ -3,12 +3,12 @@ import { IAnswersRepository } from '../repositories/answers';
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
 import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error';
 
-type DeleteAnswerUseCaseRequest = {
+type DeleteAnswerUseCaseParams = {
   authorId: string;
   answerId: string;
 };
 
-type DeleteAnswerUseCaseResponse = Either<
+type DeleteAnswerUseCaseReturn = Either<
   ResourceNotFoundError | NotAllowedError,
   null
 >;
@@ -19,7 +19,7 @@ export class DeleteAnswerUseCase {
   async execute({
     answerId,
     authorId,
-  }: DeleteAnswerUseCaseRequest): Promise<DeleteAnswerUseCaseResponse> {
+  }: DeleteAnswerUseCaseParams): Promise<DeleteAnswerUseCaseReturn> {
     const answer = await this.answersRepository.findById(answerId);
 
     if (!answer) {

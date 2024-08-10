@@ -3,13 +3,13 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Notification } from '../../enterprise/entities/notification';
 import { INotificationsRepository } from '../repositories/notifications';
 
-export type SendNotificationUseCaseRequest = {
+export type SendNotificationUseCaseParams = {
   recipientId: string;
   title: string;
   content: string;
 };
 
-export type SendNotificationUseCaseResponse = Either<
+export type SendNotificationUseCaseReturn = Either<
   null,
   {
     notification: Notification;
@@ -23,7 +23,7 @@ export class SendNotificationUseCase {
     recipientId,
     title,
     content,
-  }: SendNotificationUseCaseRequest): Promise<SendNotificationUseCaseResponse> {
+  }: SendNotificationUseCaseParams): Promise<SendNotificationUseCaseReturn> {
     const notification = Notification.create({
       recipientId: new UniqueEntityID(recipientId),
       title,

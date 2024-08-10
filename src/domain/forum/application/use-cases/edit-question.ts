@@ -8,7 +8,7 @@ import { IQuestionsRepository } from '../repositories/questions';
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
 import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error';
 
-type EditQuestionUseCaseRequest = {
+type EditQuestionUseCaseParams = {
   authorId: string;
   questionId: string;
   title: string;
@@ -16,7 +16,7 @@ type EditQuestionUseCaseRequest = {
   attachmentsIds: string[];
 };
 
-type EditQuestionUseCaseResponse = Either<
+type EditQuestionUseCaseReturn = Either<
   ResourceNotFoundError | NotAllowedError,
   {
     question: Question;
@@ -35,7 +35,7 @@ export class EditQuestionUseCase {
     title,
     content,
     attachmentsIds,
-  }: EditQuestionUseCaseRequest): Promise<EditQuestionUseCaseResponse> {
+  }: EditQuestionUseCaseParams): Promise<EditQuestionUseCaseReturn> {
     const question = await this.questionsRepository.findById(questionId);
 
     if (!question) {

@@ -3,11 +3,11 @@ import { Question } from '../../enterprise/entities/question';
 import { IQuestionsRepository } from '../repositories/questions';
 import { Injectable } from '@nestjs/common';
 
-type ListRecentQuestionsUseCaseRequest = {
+type ListRecentQuestionsUseCaseParams = {
   page: number;
 };
 
-type ListRecentQuestionsUseCaseResponse = Either<
+type ListRecentQuestionsUseCaseReturn = Either<
   null,
   {
     questions: Question[];
@@ -20,7 +20,7 @@ export class ListRecentQuestionsUseCase {
 
   async execute({
     page,
-  }: ListRecentQuestionsUseCaseRequest): Promise<ListRecentQuestionsUseCaseResponse> {
+  }: ListRecentQuestionsUseCaseParams): Promise<ListRecentQuestionsUseCaseReturn> {
     const questions = await this.questionsRepository.findManyRecent({ page });
 
     return right({

@@ -2,12 +2,12 @@ import { Either, right } from '@/core/either';
 import { Answer } from '../../enterprise/entities/answer';
 import { IAnswersRepository } from '../repositories/answers';
 
-type ListQuestionAnswersUseCaseRequest = {
+type ListQuestionAnswersUseCaseParams = {
   questionId: string;
   page: number;
 };
 
-type ListQuestionAnswersUseCaseResponse = Either<
+type ListQuestionAnswersUseCaseReturn = Either<
   null,
   {
     answers: Answer[];
@@ -20,7 +20,7 @@ export class ListQuestionAnswersUseCase {
   async execute({
     questionId,
     page,
-  }: ListQuestionAnswersUseCaseRequest): Promise<ListQuestionAnswersUseCaseResponse> {
+  }: ListQuestionAnswersUseCaseParams): Promise<ListQuestionAnswersUseCaseReturn> {
     const answers = await this.answersRepository.findManyByQuestionId(
       questionId,
       { page },

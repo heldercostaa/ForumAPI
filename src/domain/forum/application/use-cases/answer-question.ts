@@ -5,14 +5,14 @@ import { AnswerAttachment } from '../../enterprise/entities/answer-attachment';
 import { AnswerAttachmentList } from '../../enterprise/entities/answer-attachment-list';
 import { IAnswersRepository } from '../repositories/answers';
 
-type AnswerQuestionUseCaseRequest = {
+type AnswerQuestionUseCaseParams = {
   instructorId: string;
   questionId: string;
   attachmentsIds: string[];
   content: string;
 };
 
-type AnswerQuestionUseCaseResponse = Either<
+type AnswerQuestionUseCaseReturn = Either<
   null,
   {
     answer: Answer;
@@ -27,7 +27,7 @@ export class AnswerQuestionUseCase {
     questionId,
     content,
     attachmentsIds,
-  }: AnswerQuestionUseCaseRequest): Promise<AnswerQuestionUseCaseResponse> {
+  }: AnswerQuestionUseCaseParams): Promise<AnswerQuestionUseCaseReturn> {
     const answer = Answer.create({
       content,
       authorId: new UniqueEntityID(instructorId),

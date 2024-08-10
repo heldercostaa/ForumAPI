@@ -3,11 +3,11 @@ import { Question } from '../../enterprise/entities/question';
 import { IQuestionsRepository } from '../repositories/questions';
 import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error';
 
-type GetQuestionBySlugUseCaseRequest = {
+type GetQuestionBySlugUseCaseParams = {
   slug: string;
 };
 
-type GetQuestionBySlugUseCaseResponse = Either<
+type GetQuestionBySlugUseCaseReturn = Either<
   ResourceNotFoundError,
   {
     question: Question;
@@ -19,7 +19,7 @@ export class GetQuestionBySlugUseCase {
 
   async execute({
     slug,
-  }: GetQuestionBySlugUseCaseRequest): Promise<GetQuestionBySlugUseCaseResponse> {
+  }: GetQuestionBySlugUseCaseParams): Promise<GetQuestionBySlugUseCaseReturn> {
     const question = await this.questionsRepository.findBySlug(slug);
 
     if (!question) {

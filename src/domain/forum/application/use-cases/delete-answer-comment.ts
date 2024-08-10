@@ -3,12 +3,12 @@ import { IAnswerCommentsRepository } from '../repositories/answer-comments';
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
 import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error';
 
-type DeleteAnswerCommentUseCaseRequest = {
+type DeleteAnswerCommentUseCaseParams = {
   authorId: string;
   answerCommentId: string;
 };
 
-type DeleteAnswerCommentUseCaseResponse = Either<
+type DeleteAnswerCommentUseCaseReturn = Either<
   ResourceNotFoundError | NotAllowedError,
   null
 >;
@@ -19,7 +19,7 @@ export class DeleteAnswerCommentUseCase {
   async execute({
     authorId,
     answerCommentId,
-  }: DeleteAnswerCommentUseCaseRequest): Promise<DeleteAnswerCommentUseCaseResponse> {
+  }: DeleteAnswerCommentUseCaseParams): Promise<DeleteAnswerCommentUseCaseReturn> {
     const answerComment =
       await this.answerCommentsRepository.findById(answerCommentId);
 

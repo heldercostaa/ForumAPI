@@ -7,14 +7,14 @@ import { QuestionAttachmentList } from '../../enterprise/entities/question-attac
 import { IQuestionsRepository } from '../repositories/questions';
 import { Injectable } from '@nestjs/common';
 
-type CreateQuestionUseCaseRequest = {
+type CreateQuestionUseCaseParams = {
   authorId: string;
   title: string;
   content: string;
   attachmentsIds: string[];
 };
 
-type CreateQuestionUseCaseResponse = Either<
+type CreateQuestionUseCaseReturn = Either<
   null,
   {
     question: Question;
@@ -30,7 +30,7 @@ export class CreateQuestionUseCase {
     title,
     content,
     attachmentsIds,
-  }: CreateQuestionUseCaseRequest): Promise<CreateQuestionUseCaseResponse> {
+  }: CreateQuestionUseCaseParams): Promise<CreateQuestionUseCaseReturn> {
     const question = Question.create({
       authorId: new UniqueEntityID(authorId),
       title,

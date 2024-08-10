@@ -5,12 +5,12 @@ import { IQuestionsRepository } from '../repositories/questions';
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
 import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error';
 
-type ChooseQuestionBestAnswerUseCaseRequest = {
+type ChooseQuestionBestAnswerUseCaseParams = {
   authorId: string;
   answerId: string;
 };
 
-type ChooseQuestionBestAnswerUseCaseResponse = Either<
+type ChooseQuestionBestAnswerUseCaseReturn = Either<
   ResourceNotFoundError | NotAllowedError,
   {
     question: Question;
@@ -26,7 +26,7 @@ export class ChooseQuestionBestAnswerUseCase {
   async execute({
     answerId,
     authorId,
-  }: ChooseQuestionBestAnswerUseCaseRequest): Promise<ChooseQuestionBestAnswerUseCaseResponse> {
+  }: ChooseQuestionBestAnswerUseCaseParams): Promise<ChooseQuestionBestAnswerUseCaseReturn> {
     const answer = await this.answersRepository.findById(answerId);
 
     if (!answer) {
