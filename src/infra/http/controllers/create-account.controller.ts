@@ -11,6 +11,7 @@ import z from 'zod';
 
 import { StudentAlreadyExistsError } from '@/domain/forum/application/use-cases/errors/student-already-exists';
 import { RegisterStudentUseCase } from '@/domain/forum/application/use-cases/register-student';
+import { Public } from '@/infra/auth/public';
 import { ZodValidationPipe } from '../pipes/zod-validation.pipe';
 
 const BodySchema = z.object({
@@ -22,6 +23,7 @@ const BodySchema = z.object({
 type Body = z.infer<typeof BodySchema>;
 
 @Controller('/accounts')
+@Public()
 export class CreateAccountController {
   constructor(private registerStudent: RegisterStudentUseCase) {}
 
