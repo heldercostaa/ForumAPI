@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { BadRequestException, Controller, Get, Query } from '@nestjs/common';
 import z from 'zod';
 
 import { ListRecentQuestionsUseCase } from '@/domain/forum/application/use-cases/list-recent-questions';
@@ -25,7 +25,7 @@ export class ListRecentQuestionsController {
     const result = await this.listRecentQuestions.execute({ page });
 
     if (result.isLeft()) {
-      throw new Error();
+      throw new BadRequestException();
     }
 
     const questions = result.value.questions;

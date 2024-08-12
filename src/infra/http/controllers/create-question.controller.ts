@@ -1,10 +1,17 @@
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  HttpCode,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import z from 'zod';
 
 import { CreateQuestionUseCase } from '@/domain/forum/application/use-cases/create-question';
 import { CurrentUser } from '@/infra/auth/current-user.decorator';
 import { JwtGuard } from '@/infra/auth/jwt.guard';
 import { UserPayload } from '@/infra/auth/jwt.strategy';
-import { Body, Controller, HttpCode, Post, UseGuards } from '@nestjs/common';
 import { ZodValidationPipe } from '../pipes/zod-validation.pipe';
 import { QuestionPresenter } from '../presenters/question';
 
@@ -39,7 +46,7 @@ export class CreateQuestionController {
     });
 
     if (result.isLeft()) {
-      throw new Error();
+      throw new BadRequestException();
     }
 
     const question = result.value.question;
