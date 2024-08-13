@@ -6,7 +6,7 @@ import request from 'supertest';
 import { AppModule } from '@/infra/app.module';
 import { PrismaService } from '@/infra/database/prisma/prisma.service';
 
-describe('List recent questions (E2E)', () => {
+describe('Get question by slug (E2E)', () => {
   let app: INestApplication;
   let prisma: PrismaService;
   let jwt: JwtService;
@@ -23,7 +23,7 @@ describe('List recent questions (E2E)', () => {
     await app.init();
   });
 
-  test('[GET] /questions', async () => {
+  test('[GET] /questions/:slug', async () => {
     const user = await prisma.user.create({
       data: {
         name: 'John Doe',
@@ -34,35 +34,24 @@ describe('List recent questions (E2E)', () => {
 
     const accessToken = jwt.sign({ sub: user.id });
 
-    await prisma.question.createMany({
-      data: [
-        {
-          authorId: user.id,
-          title: 'Question 1',
-          slug: 'question-1',
-          content: 'Content 1',
-        },
-        {
-          authorId: user.id,
-          title: 'Question 2',
-          slug: 'question-2',
-          content: 'Content 2',
-        },
-      ],
+    await prisma.question.create({
+      data: {
+        authorId: user.id,
+        title: 'Question 1',
+        slug: 'question-1',
+        content: 'Content 1',
+      },
     });
 
     const { body } = await request(app.getHttpServer())
-      .get('/questions')
+      .get(`/questions/question-1`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send()
       .expect(({ body }) => expect(body.error).toBeUndefined())
       .expect(200);
 
     expect(body).toEqual({
-      questions: [
-        expect.objectContaining({ title: 'Question 1' }),
-        expect.objectContaining({ title: 'Question 2' }),
-      ],
+      question: expect.objectContaining({ title: 'Question 1' }),
     });
   });
 });
