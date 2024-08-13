@@ -1,6 +1,6 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { makeAnswer } from 'test/factories/make-answer';
-import { makeAnswerAttachment } from 'test/factories/make-answer.attachment';
+import { makeAnswerAttachment } from 'test/factories/make-answer-attachment';
 import { InMemoryAnswerAttachmentRepository } from 'test/repositories/in-memory-answer-attachments';
 import { InMemoryAnswersRepository } from 'test/repositories/in-memory-answers';
 import { EditAnswerUseCase } from './edit-answer';
