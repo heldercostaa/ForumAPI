@@ -1,37 +1,36 @@
-import { AppModule } from '@/infra/app.module';
-import { PrismaService } from '@/infra/database/prisma/prisma.service';
 import { INestApplication } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Test } from '@nestjs/testing';
 import request from 'supertest';
 
+import { AppModule } from '@/infra/app.module';
+import { DatabaseModule } from '@/infra/database/database.module';
+import { PrismaService } from '@/infra/database/prisma/prisma.service';
+import { StudentFactory } from 'test/factories/make-student';
+
 describe('Create question (E2E)', () => {
   let app: INestApplication;
   let prisma: PrismaService;
   let jwt: JwtService;
+  let studentFactory: StudentFactory;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [AppModule],
+      imports: [AppModule, DatabaseModule],
+      providers: [StudentFactory],
     }).compile();
 
     app = moduleRef.createNestApplication();
     prisma = moduleRef.get(PrismaService);
     jwt = moduleRef.get(JwtService);
+    studentFactory = moduleRef.get(StudentFactory);
 
     await app.init();
   });
 
   test('[POST] /questions', async () => {
-    const user = await prisma.user.create({
-      data: {
-        name: 'John Doe',
-        email: 'john@acme.com',
-        password: '123456',
-      },
-    });
-
-    const accessToken = jwt.sign({ sub: user.id });
+    const user = await studentFactory.makePrismaStudent();
+    const accessToken = jwt.sign({ sub: user.id.toString() });
 
     const { body } = await request(app.getHttpServer())
       .post('/questions')
@@ -43,8 +42,8 @@ describe('Create question (E2E)', () => {
       .expect(({ body }) => expect(body.error).toBeUndefined())
       .expect(201);
 
-    expect(body.question.id).toEqual(expect.any(String));
-    expect(body.question.authorId).toEqual(user.id);
+    expect(body.question.id.toString()).toEqual(expect.any(String));
+    expect(body.question.authorId).toEqual(user.id.toString());
     expect(body.question.title).toEqual('What is question?');
     expect(body.question.content).toEqual('I want to know what a question is.');
     expect(body.question.slug).toEqual('what-is-question');
