@@ -1,3 +1,5 @@
+import { Injectable } from '@nestjs/common';
+
 import { Either, right } from '@/core/either';
 import { AnswerComment } from '../../enterprise/entities/answer-comment';
 import { IAnswerCommentsRepository } from '../repositories/answer-comments';
@@ -14,6 +16,7 @@ type ListAnswerCommentsUseCaseReturn = Either<
   }
 >;
 
+@Injectable()
 export class ListAnswerCommentsUseCase {
   constructor(private answerCommentsRepository: IAnswerCommentsRepository) {}
 

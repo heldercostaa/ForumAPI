@@ -13,6 +13,7 @@ import { DeleteQuestionCommentUseCase } from '@/domain/forum/application/use-cas
 import { EditAnswerUseCase } from '@/domain/forum/application/use-cases/edit-answer';
 import { EditQuestionUseCase } from '@/domain/forum/application/use-cases/edit-question';
 import { GetQuestionBySlugUseCase } from '@/domain/forum/application/use-cases/get-question-by-slug';
+import { ListAnswerCommentsUseCase } from '@/domain/forum/application/use-cases/list-answer-comments';
 import { ListQuestionAnswersUseCase } from '@/domain/forum/application/use-cases/list-question-answers';
 import { ListQuestionCommentsUseCase } from '@/domain/forum/application/use-cases/list-question-comments';
 import { ListRecentQuestionsUseCase } from '@/domain/forum/application/use-cases/list-recent-questions';
@@ -33,6 +34,7 @@ import { DeleteQuestionController } from './controllers/delete-question.controll
 import { EditAnswerController } from './controllers/edit-answer.controller';
 import { EditQuestionController } from './controllers/edit-question.controller';
 import { GetQuestionBySlugController } from './controllers/get-question-by-slug.controller';
+import { ListAnswerCommentsController } from './controllers/list-answer-comments.controller';
 import { ListQuestionAnswersController } from './controllers/list-question-answers.controller';
 import { ListQuestionCommentsController } from './controllers/list-question-comments.controller';
 import { ListRecentQuestionsController } from './controllers/list-recent-questions.controller';
@@ -57,6 +59,7 @@ import { ListRecentQuestionsController } from './controllers/list-recent-questio
     CommentOnAnswerController,
     DeleteAnswerCommentController,
     ListQuestionCommentsController,
+    ListAnswerCommentsController,
   ],
   providers: [
     CreateQuestionUseCase,
@@ -76,6 +79,7 @@ import { ListRecentQuestionsController } from './controllers/list-recent-questio
     CommentOnAnswerUseCase,
     DeleteAnswerCommentUseCase,
     ListQuestionCommentsUseCase,
+    ListAnswerCommentsUseCase,
   ],
 })
 export class HttpModule {}
