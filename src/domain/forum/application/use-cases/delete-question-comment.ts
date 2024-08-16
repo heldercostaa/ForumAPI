@@ -1,7 +1,9 @@
+import { Injectable } from '@nestjs/common';
+
 import { Either, left, right } from '@/core/either';
-import { IQuestionCommentsRepository } from '../repositories/question-comments';
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
 import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error';
+import { IQuestionCommentsRepository } from '../repositories/question-comments';
 
 type DeleteQuestionCommentUseCaseParams = {
   authorId: string;
@@ -13,6 +15,7 @@ type DeleteQuestionCommentUseCaseReturn = Either<
   null
 >;
 
+@Injectable()
 export class DeleteQuestionCommentUseCase {
   constructor(
     private questionCommentsRepository: IQuestionCommentsRepository,
