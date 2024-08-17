@@ -9,8 +9,6 @@ export class GetQuestionBySlugController {
 
   @Get()
   async handle(@Param('slug') slug: string) {
-    console.log('[DEBUG] slug: ', slug);
-
     const result = await this.getQuestionBySlug.execute({ slug });
 
     if (result.isLeft()) {
