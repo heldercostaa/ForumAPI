@@ -9,7 +9,7 @@ import z from 'zod';
 
 import { ListQuestionCommentsUseCase } from '@/domain/forum/application/use-cases/list-question-comments';
 import { ZodValidationPipe } from '../pipes/zod-validation.pipe';
-import { CommentPresenter } from '../presenters/comment';
+import { CommentWithAuthorPresenter } from '../presenters/comment-with-author';
 
 const QuerySchema = z
   .string()
@@ -32,16 +32,16 @@ export class ListQuestionCommentsController {
     @Param('questionId') questionId: string,
   ) {
     const result = await this.listQuestionComments.execute({
-      questionId,
       page,
+      questionId,
     });
 
     if (result.isLeft()) {
       throw new BadRequestException();
     }
 
-    const questionComments = result.value.questionComments;
+    const comments = result.value.comments;
 
-    return { comments: questionComments.map(CommentPresenter.toHTTP) };
+    return { comments: comments.map(CommentWithAuthorPresenter.toHTTP) };
   }
 }
