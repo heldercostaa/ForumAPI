@@ -9,6 +9,8 @@ let sut: ListRecentQuestionsUseCase;
 
 describe('List Recent Questions', () => {
   beforeEach(() => {
+    inMemoryQuestionAttachmentsRepository =
+      new InMemoryQuestionAttachmentRepository();
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
       inMemoryQuestionAttachmentsRepository,
     );

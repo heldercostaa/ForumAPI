@@ -10,6 +10,8 @@ let sut: GetQuestionBySlugUseCase;
 
 describe('Get Question By Slug', () => {
   beforeEach(() => {
+    inMemoryQuestionAttachmentsRepository =
+      new InMemoryQuestionAttachmentRepository();
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
       inMemoryQuestionAttachmentsRepository,
     );
