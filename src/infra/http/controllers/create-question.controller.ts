@@ -16,6 +16,7 @@ import { QuestionPresenter } from '../presenters/question';
 const BodySchema = z.object({
   title: z.string(),
   content: z.string(),
+  attachments: z.array(z.string().uuid()),
 });
 
 type Body = z.infer<typeof BodySchema>;
@@ -33,13 +34,13 @@ export class CreateQuestionController {
     @Body(BodyValidationPipe) body: Body,
   ) {
     const userId = user.sub;
-    const { title, content } = body;
+    const { title, content, attachments } = body;
 
     const result = await this.createQuestion.execute({
       title,
       content,
       authorId: userId,
-      attachmentsIds: [],
+      attachmentsIds: attachments,
     });
 
     if (result.isLeft()) {
