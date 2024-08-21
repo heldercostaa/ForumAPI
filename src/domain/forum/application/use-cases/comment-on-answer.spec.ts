@@ -1,12 +1,12 @@
 import { makeAnswer } from 'test/factories/make-answer';
 import { InMemoryAnswerAttachmentRepository } from 'test/repositories/in-memory-answer-attachments';
-import { InMemoryAnswerCommentRepository } from 'test/repositories/in-memory-answer-comments';
+import { InMemoryAnswerCommentsRepository } from 'test/repositories/in-memory-answer-comments';
 import { InMemoryAnswersRepository } from 'test/repositories/in-memory-answers';
 import { CommentOnAnswerUseCase } from './comment-on-answer';
 
 let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentRepository;
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
-let inMemoryAnswerCommentsRepository: InMemoryAnswerCommentRepository;
+let inMemoryAnswerCommentsRepository: InMemoryAnswerCommentsRepository;
 let sut: CommentOnAnswerUseCase;
 
 describe('Comment on Answer', () => {
@@ -16,7 +16,7 @@ describe('Comment on Answer', () => {
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
       inMemoryAnswerAttachmentsRepository,
     );
-    inMemoryAnswerCommentsRepository = new InMemoryAnswerCommentRepository();
+    inMemoryAnswerCommentsRepository = new InMemoryAnswerCommentsRepository();
     sut = new CommentOnAnswerUseCase(
       inMemoryAnswersRepository,
       inMemoryAnswerCommentsRepository,

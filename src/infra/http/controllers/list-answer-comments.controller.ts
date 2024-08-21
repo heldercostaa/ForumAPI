@@ -9,7 +9,7 @@ import z from 'zod';
 
 import { ListAnswerCommentsUseCase } from '@/domain/forum/application/use-cases/list-answer-comments';
 import { ZodValidationPipe } from '../pipes/zod-validation.pipe';
-import { CommentPresenter } from '../presenters/comment';
+import { CommentWithAuthorPresenter } from '../presenters/comment-with-author';
 
 const QuerySchema = z
   .string()
@@ -40,8 +40,8 @@ export class ListAnswerCommentsController {
       throw new BadRequestException();
     }
 
-    const answerComments = result.value.answerComments;
+    const comments = result.value.comments;
 
-    return { comments: answerComments.map(CommentPresenter.toHTTP) };
+    return { comments: comments.map(CommentWithAuthorPresenter.toHTTP) };
   }
 }
