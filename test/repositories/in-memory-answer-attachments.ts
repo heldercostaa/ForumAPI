@@ -1,7 +1,7 @@
 import { IAnswerAttachmentsRepository } from '@/domain/forum/application/repositories/answer-attachments';
 import { AnswerAttachment } from '@/domain/forum/enterprise/entities/answer-attachment';
 
-export class InMemoryAnswerAttachmentRepository
+export class InMemoryAnswerAttachmentsRepository
   implements IAnswerAttachmentsRepository
 {
   public items: AnswerAttachment[] = [];

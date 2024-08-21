@@ -1,17 +1,17 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { makeAnswer } from 'test/factories/make-answer';
-import { InMemoryAnswerAttachmentRepository } from 'test/repositories/in-memory-answer-attachments';
+import { InMemoryAnswerAttachmentsRepository } from 'test/repositories/in-memory-answer-attachments';
 import { InMemoryAnswersRepository } from 'test/repositories/in-memory-answers';
 import { ListQuestionAnswersUseCase } from './list-question-answers';
 
-let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentRepository;
+let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository;
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
 let sut: ListQuestionAnswersUseCase;
 
 describe('List Question Answers', () => {
   beforeEach(() => {
     inMemoryAnswerAttachmentsRepository =
-      new InMemoryAnswerAttachmentRepository();
+      new InMemoryAnswerAttachmentsRepository();
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
       inMemoryAnswerAttachmentsRepository,
     );

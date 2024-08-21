@@ -1,19 +1,19 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { makeAnswer } from 'test/factories/make-answer';
 import { makeAnswerAttachment } from 'test/factories/make-answer-attachment';
-import { InMemoryAnswerAttachmentRepository } from 'test/repositories/in-memory-answer-attachments';
+import { InMemoryAnswerAttachmentsRepository } from 'test/repositories/in-memory-answer-attachments';
 import { InMemoryAnswersRepository } from 'test/repositories/in-memory-answers';
 import { DeleteAnswerUseCase } from './delete-answer';
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
 
-let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentRepository;
+let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository;
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
 let sut: DeleteAnswerUseCase;
 
 describe('Delete Answer', () => {
   beforeEach(() => {
     inMemoryAnswerAttachmentsRepository =
-      new InMemoryAnswerAttachmentRepository();
+      new InMemoryAnswerAttachmentsRepository();
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
       inMemoryAnswerAttachmentsRepository,
     );
