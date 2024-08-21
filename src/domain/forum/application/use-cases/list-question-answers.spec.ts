@@ -10,6 +10,8 @@ let sut: ListQuestionAnswersUseCase;
 
 describe('List Question Answers', () => {
   beforeEach(() => {
+    inMemoryAnswerAttachmentsRepository =
+      new InMemoryAnswerAttachmentRepository();
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
       inMemoryAnswerAttachmentsRepository,
     );
