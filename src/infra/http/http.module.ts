@@ -41,6 +41,8 @@ import { ListQuestionAnswersController } from './controllers/list-question-answe
 import { ListQuestionCommentsController } from './controllers/list-question-comments.controller';
 import { ListRecentQuestionsController } from './controllers/list-recent-questions.controller';
 import { UploadAttachmentController } from './controllers/upload-attachment.controller';
+import { ReadNotificationController } from './controllers/read-notification.controller';
+import { ReadNotificationUseCase } from '@/domain/notification/application/use-cases/read-notification';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule, StorageModule],
@@ -64,6 +66,7 @@ import { UploadAttachmentController } from './controllers/upload-attachment.cont
     ListQuestionCommentsController,
     ListAnswerCommentsController,
     UploadAttachmentController,
+    ReadNotificationController,
   ],
   providers: [
     CreateQuestionUseCase,
@@ -85,6 +88,7 @@ import { UploadAttachmentController } from './controllers/upload-attachment.cont
     ListQuestionCommentsUseCase,
     ListAnswerCommentsUseCase,
     UploadAndCreateAttachmentUseCase,
+    ReadNotificationUseCase,
   ],
 })
 export class HttpModule {}
