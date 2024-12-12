@@ -5,11 +5,11 @@ import { DomainEvents } from './domain-events';
 import { vi } from 'vitest';
 
 class CustomAggregateCreated implements IDomainEvent {
-  public ocurredAt: Date;
+  public occurredAt: Date;
   private aggregate: CustomAggregate; // eslint-disable-line
 
   constructor(aggregate: CustomAggregate) {
-    this.ocurredAt = new Date();
+    this.occurredAt = new Date();
     this.aggregate = aggregate;
   }
 
