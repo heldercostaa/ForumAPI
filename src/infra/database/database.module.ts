@@ -19,8 +19,10 @@ import { PrismaQuestionAttachmentsRepository } from './prisma/repositories/quest
 import { PrismaQuestionCommentsRepository } from './prisma/repositories/question-comments';
 import { PrismaQuestionsRepository } from './prisma/repositories/questions';
 import { PrismaStudentsRepository } from './prisma/repositories/students';
+import { CacheModule } from '../cache/cache.module';
 
 @Module({
+  imports: [CacheModule],
   providers: [
     PrismaService,
     PrismaAnswersRepository,

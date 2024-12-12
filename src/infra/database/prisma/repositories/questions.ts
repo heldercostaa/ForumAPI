@@ -9,12 +9,13 @@ import { PrismaQuestionMapper } from '../mappers/prisma-question';
 import { PrismaQuestionDetailsMapper } from '../mappers/prisma-question-details';
 import { PrismaService } from '../prisma.service';
 import { DomainEvents } from '@/core/events/domain-events';
+import { CacheRepository } from '@/infra/cache/cache-repository';
 
 @Injectable()
 export class PrismaQuestionsRepository implements IQuestionsRepository {
   constructor(
     private prisma: PrismaService,
-    // private cache: CacheRepository,
+    private cache: CacheRepository,
     private questionAttachmentsRepository: IQuestionAttachmentsRepository,
   ) {}
 
@@ -39,13 +40,13 @@ export class PrismaQuestionsRepository implements IQuestionsRepository {
   }
 
   async findDetailsBySlug(slug: string): Promise<QuestionDetails | null> {
-    // const cacheHit = await this.cache.get(`question:${slug}:details`)
+    const cacheHit = await this.cache.get(`question:${slug}:details`);
 
-    // if (cacheHit) {
-    //   const cacheData = JSON.parse(cacheHit)
+    if (cacheHit) {
+      const cacheData = JSON.parse(cacheHit);
 
-    //   return cacheData
-    // }
+      return cacheData;
+    }
 
     const question = await this.prisma.question.findUnique({
       where: {
@@ -63,10 +64,10 @@ export class PrismaQuestionsRepository implements IQuestionsRepository {
 
     const questionDetails = PrismaQuestionDetailsMapper.toDomain(question);
 
-    // await this.cache.set(
-    //   `question:${slug}:details`,
-    //   JSON.stringify(questionDetails),
-    // );
+    await this.cache.set(
+      `question:${slug}:details`,
+      JSON.stringify(questionDetails),
+    );
 
     return questionDetails;
   }
@@ -104,6 +105,7 @@ export class PrismaQuestionsRepository implements IQuestionsRepository {
       await this.questionAttachmentsRepository.deleteMany(
         question.attachments.getRemovedItems(),
       ),
+      this.cache.delete(`question:${data.slug}:details`),
     ]);
 
     DomainEvents.dispatchEventsForAggregate(question.id);
