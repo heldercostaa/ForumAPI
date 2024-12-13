@@ -34,7 +34,7 @@ const schemaId = randomUUID();
 
 beforeAll(async () => {
   const dbURL = generateUniqueDbURL(schemaId);
-  env.DB_URL = dbURL;
+  process.env.DB_URL = dbURL;
 
   DomainEvents.shouldRun = false;
 
